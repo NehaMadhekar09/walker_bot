@@ -12,23 +12,23 @@
  */
 
 #include <chrono>
+#include <string>
+
 #include <functional>
 #include <memory>
-#include <string>
+
 
 #include "geometry_msgs/msg/twist.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/laser_scan.hpp"
 #include "std_msgs/msg/string.hpp"
 
-using namespace std::chrono_literals;
-
 /**
  * @class WalkerBot
  * @brief A ROS 2 node for a simple walker robot.
  */
 class WalkerBot : public rclcpp::Node {
-public:
+ public:
   /**
    * @brief Constructor for the WalkerBot class.
    */
@@ -39,21 +39,22 @@ public:
         "scan", 10,
         std::bind(&WalkerBot::laser_callback, this, std::placeholders::_1));
     timer_ = this->create_wall_timer(
-        500ms, std::bind(&WalkerBot::timer_callback, this));
+        std::chrono::milliseconds(500),
+        std::bind(&WalkerBot::timer_callback, this));
   }
 
-private:
+ private:
   /**
    * @brief Callback function for processing laser scan data.
    * @param msg Laser scan data message.
    */
   void laser_callback(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
     // Simulate obstacle detection based on LaserScan data
-    auto laser_data=msg->ranges;
+    auto laser_data = msg->ranges;
     for (int i = 330; i < 330 + 60; i++) {
       if (laser_data[i % 360] < 0.8) {
         obstacle_detected_ = true;
-        return; 
+        return;
       }
     }
     obstacle_detected_ = false;
