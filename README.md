@@ -14,7 +14,7 @@ This repository contains a simple walker algorithm much like a Roomba robot vacu
 mkdir -p ~/ros2_ws/src
 cd ~/ros2_ws/src
 
-git clone https://github.com/NehaMadhekar09/beginner_tutorials.git
+git clone https://github.com/NehaMadhekar09/walker_bot.git
 
 cd ..
 
