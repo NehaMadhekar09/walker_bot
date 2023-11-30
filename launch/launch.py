@@ -1,3 +1,11 @@
+"""
+File: launch.py
+Author: Neha Nitin Madhekar
+License: Apache License 2.0
+
+This launch file launches gazebo world, walker node and records the rosbag
+
+"""
 import os
 
 from ament_index_python.packages import get_package_share_directory
@@ -9,7 +17,12 @@ from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
+"""
+    Generate a LaunchDescription for the ROS2 package.
 
+    Returns:
+        LaunchDescription: The generated launch description.
+"""
 def generate_launch_description():
     """Method to launch the nodes in the package with bag record flag"""
     args_record_bag = DeclareLaunchArgument('record_rosbag', default_value='False', choices=['True', 'False']) 
